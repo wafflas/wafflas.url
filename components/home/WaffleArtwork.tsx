@@ -1,0 +1,54 @@
+"use client";
+
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useState } from "react";
+
+const AsciiWaffle = dynamic(() => import("@/components/ui/AsciiWaffle"), {
+  ssr: false,
+});
+
+export function WaffleArtwork() {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className="relative mx-auto aspect-5/4 w-full sm:max-w-xl 2xl:max-w-3xl">
+      <div
+        className="absolute inset-0"
+        role="img"
+        aria-label="A three-dimensional waffle rendered in ASCII characters"
+      >
+        {!loaded && (
+          <Image
+            className="object-contain"
+            src="/images/waffle-ascii.png"
+            alt=""
+            fill
+            sizes="(min-width: 96rem) 32rem, (min-width: 40rem) 28rem, 100vw"
+            preload
+          />
+        )}
+        <AsciiWaffle
+          className="size-full"
+          src="/waffle3d.glb"
+          ascii
+          colored={false}
+          color="#000000"
+          exposure={1}
+          cellSize={9}
+          edgeContrast={2}
+          contrast={3}
+          scale={3.6}
+          yOffset={-0.3}
+          autoRotate={true}
+          autoRotateSpeed={2}
+          orbit={true}
+          zoom={false}
+          floatIntensity={0}
+          rotationIntensity={0}
+          onLoad={() => setLoaded(true)}
+          onError={() => setLoaded(false)}
+        />
+      </div>
+    </div>
+  );
+}

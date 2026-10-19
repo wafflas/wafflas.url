@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Design conventions
+
+`DESIGN.MD` defines the visual identity. `app/globals.css` exposes its colors and fonts through Tailwind theme tokens, alongside the grain effect.
+
+- Use `PageContainer` for shared content width and responsive page gutters.
+- Use Tailwind's standard `sm`, `md`, and `lg` breakpoints, spacing scale, and container widths. Avoid Figma coordinates, percentage widths, and one-off pixel utilities.
+- The guideline spacing values map to `2`, `3`, `4`, `6`, `8`, `12`, and `18` on Tailwind's 4px base scale.
+- Use `font-mono` for body text and navigation, `font-sans font-bold` for display headings, and `font-pixel` for occasional accents.
+- The hero uses `text-2xl`, `sm:text-3xl`, and `lg:text-5xl`; navigation uses `text-sm`, `sm:text-base`, and `lg:text-xl`.
+- Keep grain in `GrainBackground` and its theme tokens. Preserve the reduced-motion variant.
+- Image dimensions and responsive `sizes` describe media; ASCII shader parameters describe the renderer. Keep these separate from layout styling.
+
 ## Getting Started
 
 First, run the development server:
