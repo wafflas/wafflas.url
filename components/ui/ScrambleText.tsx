@@ -47,10 +47,7 @@ function ScrambleLabel({ children }: ScrambleLabelProps) {
   }, [children]);
 
   function handlePointerMove(event: ReactPointerEvent<HTMLSpanElement>) {
-    if (
-      event.pointerType === "touch" ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
@@ -80,7 +77,8 @@ function ScrambleLabel({ children }: ScrambleLabelProps) {
     <span
       ref={labelRef}
       aria-hidden="true"
-      className="inline-block whitespace-pre"
+      className="inline-block touch-manipulation whitespace-pre"
+      onPointerDown={handlePointerMove}
       onPointerMove={handlePointerMove}
     >
       {children}
