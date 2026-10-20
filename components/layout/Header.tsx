@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { BrandMark } from "@/components/ui/Logo";
+import { ScrambleLink } from "@/components/ui/ScrambleText";
 
 const navigation = [
   {
@@ -26,7 +27,7 @@ export function SiteHeader() {
           <BrandMark className="size-12 sm:size-16" />
         </Link>
         <nav aria-label="Main navigation">
-          <ul className="flex items-center text-sm sm:text-base lg:text-xl">
+          <ul className="flex items-center text-md lg:text-xl">
             {navigation.map((item, index) => (
               <li
                 key={item.label}
@@ -51,13 +52,13 @@ export function SiteHeader() {
                   </span>
                 )}
                 {/* Destinations will be connected when the other pages are ready. */}
-                <Link
+                <ScrambleLink
                   href={item.href}
                   aria-label={`Go to ${item.label} page`}
                   className="inline-flex min-h-11 items-center"
                 >
                   {item.label}
-                </Link>
+                </ScrambleLink>
               </li>
             ))}
           </ul>

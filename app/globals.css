@@ -23,17 +23,28 @@
   --animate-grain: grain 900ms steps(1, end) infinite;
 
   @keyframes grain {
-    0%, 100% { background-position: 0 0; }
-    20% { background-position: -31px 19px; }
-    40% { background-position: 23px -43px; }
-    60% { background-position: -47px -13px; }
-    80% { background-position: 17px 37px; }
+    0%,
+    100% {
+      background-position: 0 0;
+    }
+    20% {
+      background-position: -31px 19px;
+    }
+    40% {
+      background-position: 23px -43px;
+    }
+    60% {
+      background-position: -47px -13px;
+    }
+    80% {
+      background-position: 17px 37px;
+    }
   }
 }
 
 @layer base {
   :focus-visible {
-    @apply outline-2 outline-offset-5 outline-foreground;
+    @apply outline-2 outline-offset-5 outline-foreground outline-dashed;
   }
 
   ::selection {

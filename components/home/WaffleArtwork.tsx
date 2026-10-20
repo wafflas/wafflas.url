@@ -11,9 +11,9 @@ const AsciiWaffle = dynamic(() => import("@/components/ui/AsciiWaffle"), {
 export function WaffleArtwork() {
   const [loaded, setLoaded] = useState(false);
   return (
-    <div className="relative mx-auto aspect-5/4 w-full sm:max-w-xl 2xl:max-w-3xl">
+    <div className="grid size-full min-h-0 place-items-center overflow-hidden [container-type:size]">
       <div
-        className="absolute inset-0"
+        className="relative aspect-5/4 w-[min(100cqw,125cqh,36rem)] 2xl:w-[min(100cqw,125cqh,48rem)]"
         role="img"
         aria-label="A three-dimensional waffle rendered in ASCII characters"
       >
