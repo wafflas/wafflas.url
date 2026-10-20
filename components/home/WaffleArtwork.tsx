@@ -34,7 +34,7 @@ export function WaffleArtwork() {
           colored={false}
           color="#000000"
           exposure={1}
-          cellSize={9}
+          cellSize={4}
           edgeContrast={2}
           contrast={3}
           scale={3.6}
