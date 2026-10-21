@@ -23,8 +23,6 @@ export function WorkCarousel({
   const endPositionRef = useRef<number | null>(null);
   const isNavigationArmedRef = useRef(false);
   const pointerIdRef = useRef<number | null>(null);
-  const pullIndicatorRef = useRef<HTMLDivElement>(null);
-  const pullContentRef = useRef<HTMLDivElement>(null);
   const pullProgressRef = useRef<HTMLDivElement>(null);
   const [isNavigationArmed, setIsNavigationArmed] = useState(false);
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -43,12 +41,6 @@ export function WorkCarousel({
   }
 
   function updatePullIndicator(progress: number) {
-    if (pullIndicatorRef.current) {
-      pullIndicatorRef.current.style.opacity = progress > 0 ? "1" : "0";
-    }
-    if (pullContentRef.current) {
-      pullContentRef.current.style.transform = `translateX(${(1 - progress) * 100}%)`;
-    }
     if (pullProgressRef.current) {
       pullProgressRef.current.style.transform = `scaleX(${progress})`;
     }
@@ -114,18 +106,13 @@ export function WorkCarousel({
       onPointerCancel={resetPull}
       className="relative w-full min-w-0 cursor-grab overflow-hidden active:cursor-grabbing md:flex-1"
     >
-      <div className="flex touch-pan-y gap-[5px] px-4 select-none md:py-12 md:pt-2.5 md:pr-5 md:pl-0">
+      <div className="flex touch-pan-y gap-2 px-4 select-none md:py-12 md:pt-2.5 md:pr-5 md:pl-0">
         {children}
         <div
-          ref={pullIndicatorRef}
           aria-hidden="true"
-          className="pointer-events-none flex w-40 shrink-0 self-stretch items-center px-4 opacity-0 transition-opacity duration-150"
+          className="pointer-events-none flex w-40 shrink-0 self-stretch items-center px-4"
         >
-          <div
-            ref={pullContentRef}
-            className="w-full"
-            style={{ transform: "translateX(100%)" }}
-          >
+          <div className="w-full">
             <p className="mb-2 text-center text-[10px] tracking-[0.16em] uppercase">
               {isNavigationArmed ? "Release to view" : "Keep dragging"}
             </p>

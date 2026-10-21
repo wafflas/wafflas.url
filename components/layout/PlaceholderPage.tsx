@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout/Header";
+import type { ReactNode } from "react";
 
 export function PlaceholderPage({
   eyebrow,
@@ -7,7 +8,7 @@ export function PlaceholderPage({
 }: {
   eyebrow: string;
   title: string;
-  description: string;
+  description: ReactNode;
 }) {
   return (
     <div className="flex flex-1 flex-col">
@@ -29,9 +30,9 @@ export function PlaceholderPage({
           <h1 className="mt-5 font-sans text-[clamp(3.5rem,10vw,9rem)] leading-[0.82] font-bold tracking-[-0.07em]">
             {title}
           </h1>
-          <p className="mt-8 max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
+          <div className="mt-8 max-w-2xl space-y-4 text-sm leading-relaxed text-text-secondary sm:text-base">
             {description}
-          </p>
+          </div>
         </div>
       </main>
     </div>

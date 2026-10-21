@@ -11,7 +11,13 @@ export default function ContactPage() {
     <PlaceholderPage
       eyebrow="Contact"
       title="Say hello."
-      description="Contact details are coming soon. Check back shortly to start a conversation about a weird, exciting, or unusually ambitious web project."
+      description={
+        <p>
+          Contact details are coming soon. Check back shortly to start a
+          conversation about a weird, exciting, or unusually ambitious web
+          project.
+        </p>
+      }
     />
   );
 }
