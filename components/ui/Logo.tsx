@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export function BrandMark({ className }: { className?: string }) {
+export function Logo({ className }: { className?: string }) {
   return (
     <Image
       className={className}

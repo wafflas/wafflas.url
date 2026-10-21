@@ -7,6 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import {
   type ComponentProps,
   type PointerEvent as ReactPointerEvent,
+  type ReactNode,
   useLayoutEffect,
   useRef,
 } from "react";
@@ -95,6 +96,71 @@ export function ScrambleLink({ children, ...props }: ScrambleLinkProps) {
     <Link {...props} aria-label={props["aria-label"] ?? children}>
       <ScrambleLabel>{children}</ScrambleLabel>
     </Link>
+  );
+}
+
+type ScrambleIconLinkProps = Omit<ComponentProps<"a">, "children"> & {
+  children: ReactNode;
+  label: string;
+};
+
+export function ScrambleIconLink({
+  children,
+  label,
+  ...props
+}: ScrambleIconLinkProps) {
+  const iconRef = useRef<HTMLSpanElement>(null);
+  const glyphRef = useRef<HTMLSpanElement>(null);
+
+  useLayoutEffect(() => {
+    const icon = iconRef.current;
+    const glyph = glyphRef.current;
+
+    return () => {
+      gsap.killTweensOf([icon, glyph]);
+    };
+  }, []);
+
+  function handlePointerEnter() {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !iconRef.current ||
+      !glyphRef.current
+    ) {
+      return;
+    }
+
+    gsap.killTweensOf([iconRef.current, glyphRef.current]);
+    gsap
+      .timeline()
+      .set(iconRef.current, { autoAlpha: 0 })
+      .set(glyphRef.current, { autoAlpha: 1 })
+      .to(glyphRef.current, {
+        duration: 0.35,
+        scrambleText: { text: "·", chars: ".:", speed: 0.45 },
+        ease: "none",
+      })
+      .set(glyphRef.current, { autoAlpha: 0 })
+      .set(iconRef.current, { autoAlpha: 1 });
+  }
+
+  return (
+    <a
+      {...props}
+      aria-label={props["aria-label"] ?? label}
+      onPointerEnter={handlePointerEnter}
+    >
+      <span ref={iconRef} className="flex items-center justify-center">
+        {children}
+      </span>
+      <span
+        ref={glyphRef}
+        aria-hidden="true"
+        className="invisible absolute font-mono leading-none"
+      >
+        {label.slice(0, 1).toLowerCase()}
+      </span>
+    </a>
   );
 }
 

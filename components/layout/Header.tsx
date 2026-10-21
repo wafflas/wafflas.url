@@ -1,30 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PageContainer } from "@/components/layout/PageContainer";
-import { BrandMark } from "@/components/ui/Logo";
+import { Logo } from "@/components/ui/Logo";
 import { ScrambleLink } from "@/components/ui/ScrambleText";
 
 const navigation = [
-  {
-    label: "work",
-    href: "/",
-  },
-  {
-    label: "about",
-    href: "/about",
-  },
-  {
-    label: "contact",
-    href: "/contact",
-  },
+  { label: "work", href: "/work" },
+  { label: "about", href: "/about" },
+  { label: "contact", href: "/contact" },
 ] as const;
 
-export function SiteHeader() {
+export function Header() {
   return (
     <header className="py-6 sm:py-8">
-      <PageContainer className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label="Wafflasurl home" className="shrink-0">
-          <BrandMark className="size-12 sm:size-16" />
+          <Logo className="size-12 sm:size-16" />
         </Link>
         <nav aria-label="Main navigation">
           <ul className="flex items-center text-md lg:text-xl">
@@ -45,13 +35,12 @@ export function SiteHeader() {
                     <Image
                       src="/images/nav-separator.svg"
                       alt=""
-                      width={8}
-                      height={8}
+                      width={6}
+                      height={6}
                       className="hidden -scale-y-100 sm:block"
                     />
                   </span>
                 )}
-                {/* Destinations will be connected when the other pages are ready. */}
                 <ScrambleLink
                   href={item.href}
                   aria-label={`Go to ${item.label} page`}
@@ -63,7 +52,7 @@ export function SiteHeader() {
             ))}
           </ul>
         </nav>
-      </PageContainer>
+      </div>
     </header>
   );
 }

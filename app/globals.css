@@ -43,8 +43,17 @@
 }
 
 @layer base {
+  @media (width >= 48rem) {
+    body:has(> .project-detail-page) {
+      height: 100dvh;
+      min-height: 100dvh;
+      overflow: hidden;
+    }
+  }
+
   :focus-visible {
-    @apply outline-2 outline-offset-5 outline-foreground outline-dashed;
+    outline: 2px dashed currentColor;
+    outline-offset: 5px;
   }
 
   ::selection {

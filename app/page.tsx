@@ -1,5 +1,5 @@
 import { HomeHero } from "@/components/home/HomeHero";
-import { SiteHeader } from "@/components/layout/Header";
+import { Header } from "@/components/layout/Header";
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
       >
         Skip to content
       </a>
-      <SiteHeader />
+      <Header />
       <HomeHero />
     </div>
   );
