@@ -98,12 +98,12 @@ export function WorkCarousel({
       onPointerCancel={resetPull}
       className="relative w-full min-w-0 cursor-grab overflow-hidden focus-visible:outline-offset-[-3px] active:cursor-grabbing md:flex-1"
     >
-      <div className="flex touch-pan-y gap-[5px] px-4 select-none md:py-12 md:pt-2.5 md:pr-5 md:pl-0">
+      <div className="flex touch-pan-y gap-[5px] px-4 pb-10 select-none md:py-12 md:pt-2.5 md:pr-5 md:pl-0">
         {children}
       </div>
       <div
         aria-hidden="true"
-        className={`pointer-events-none absolute top-1/2 right-1 w-32 -translate-y-1/2 transition-opacity duration-150 ${
+        className={`pointer-events-none absolute right-4 bottom-2 w-32 transition-opacity duration-150 md:right-5 md:bottom-3 ${
           pullProgress > 0 ? "opacity-100" : "opacity-0"
         }`}
       >
