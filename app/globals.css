@@ -67,14 +67,6 @@
     z-index: 50;
   }
 
-  @media (width >= 48rem) {
-    body:has(> .project-detail-page) {
-      height: 100dvh;
-      min-height: 100dvh;
-      overflow: hidden;
-    }
-  }
-
   :focus-visible {
     outline: 2px dashed currentColor;
     outline-offset: 5px;

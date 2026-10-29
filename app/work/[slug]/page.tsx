@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { Header } from "@/components/layout/Header";
 import { ProjectDetail } from "@/components/work-detail/ProjectDetail";
 import { ProjectDetailSkeleton } from "@/components/work-detail/ProjectDetailSkeleton";
+import { ProjectScrollLock } from "@/components/work-detail/ProjectScrollLock";
 import { workItems } from "@/components/work/workItems";
 
 export function generateStaticParams() {
@@ -26,6 +27,7 @@ export default function WorkDetailPage({
 }: PageProps<"/work/[slug]">) {
   return (
     <div className="project-detail-page flex min-h-dvh flex-col md:min-h-0 md:flex-1 md:overflow-hidden">
+      <ProjectScrollLock />
       <a
         href="#main-content"
         className="sr-only z-10 bg-background px-4 py-3 focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
