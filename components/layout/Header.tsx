@@ -11,7 +11,7 @@ const navigation = [
 
 export function Header() {
   return (
-    <header className="py-6 sm:py-8">
+    <header className="sticky top-0 z-20 shrink-0 py-6 sm:py-8">
       <div className="flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" aria-label="Wafflasurl home" className="shrink-0">
           <Logo className="size-12 sm:size-16" />

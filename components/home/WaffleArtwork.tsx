@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useState } from "react";
+import { useHomeIntro } from "./HomeIntro";
 
 const AsciiWaffle = dynamic(() => import("@/components/ui/AsciiWaffle"), {
   ssr: false,
@@ -10,8 +11,9 @@ const AsciiWaffle = dynamic(() => import("@/components/ui/AsciiWaffle"), {
 
 export function WaffleArtwork() {
   const [loaded, setLoaded] = useState(false);
+  const { active, spinning, assemble, finish } = useHomeIntro();
   return (
-    <div className="grid size-full min-h-0 place-items-center overflow-hidden [container-type:size]">
+    <div className="home-waffle grid size-full min-h-0 place-items-center overflow-hidden [container-type:size]">
       <div
         className="relative aspect-5/4 w-[min(100cqw,125cqh,36rem)] 2xl:w-[min(100cqw,125cqh,48rem)]"
         role="img"
@@ -33,20 +35,25 @@ export function WaffleArtwork() {
           ascii
           colored={false}
           color="#000000"
-          exposure={1}
-          cellSize={4}
-          edgeContrast={2}
-          contrast={3}
+          exposure={0.85}
+          cellSize={3.5}
+          edgeContrast={3.5}
+          contrast={2.2}
+          environmentIntensity={0.8}
           scale={3.6}
           yOffset={-0.3}
-          autoRotate={true}
+          autoRotate={spinning}
           autoRotateSpeed={2}
-          orbit={true}
+          orbit={!active}
           zoom={false}
           floatIntensity={0}
           rotationIntensity={0}
           onLoad={() => setLoaded(true)}
-          onError={() => setLoaded(false)}
+          onFirstRender={assemble}
+          onError={() => {
+            setLoaded(false);
+            finish();
+          }}
         />
       </div>
     </div>

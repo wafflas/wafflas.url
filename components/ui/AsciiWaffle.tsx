@@ -68,6 +68,8 @@ export interface AsciiObjectOptions {
   onLoad?: (() => void) | null;
   /** Called when an asset fails to load. */
   onError?: ((error: unknown) => void) | null;
+  /** Called synchronously after the first loaded frame, while its pixels are available. */
+  onFirstRender?: ((canvas: HTMLCanvasElement) => void) | null;
 }
 
 export interface AsciiObjectElements {
@@ -119,6 +121,7 @@ const DEFAULTS: Required<AsciiObjectOptions> = {
   dracoDecoderPath: "https://www.gstatic.com/draco/versioned/decoders/1.5.7/",
   onLoad: null,
   onError: null,
+  onFirstRender: null,
 };
 
 const POST_VERT = `
@@ -1337,6 +1340,7 @@ export function createAsciiObject(
   let loopRunning = false;
   let lastTime = 0;
   let elapsed = Math.random() * 100;
+  let firstFrameRendered = false;
 
   const observer = new ResizeObserver(resize);
   observer.observe(canvas);
@@ -1380,6 +1384,10 @@ export function createAsciiObject(
     }
     renderer.setRenderTarget(null);
     renderer.render(postScene, postCamera);
+    if (model && !firstFrameRendered) {
+      firstFrameRendered = true;
+      config.onFirstRender?.(canvas);
+    }
 
     // A still, non-interactive composition only needs to render after changes.
     const hasMotion =

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function WorkPage() {
   return (
-    <div className="min-h-dvh overflow-x-hidden">
+    <div className="min-h-dvh overflow-x-clip">
       <a
         href="#main-content"
         className="sr-only z-10 bg-background px-4 py-3 focus:not-sr-only focus:absolute focus:top-4 focus:left-4"

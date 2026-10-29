@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+.home-intro[data-intro="loading"] header,
+.home-intro[data-intro="loading"] h1 {
+  visibility: hidden;
+}
+
+.home-intro[data-intro="loading"] .home-waffle {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-intro[data-intro="loading"] header,
+  .home-intro[data-intro="loading"] h1 {
+    visibility: visible;
+  }
+
+  .home-intro[data-intro="loading"] .home-waffle {
+    opacity: 1;
+  }
+}
+
 :root {
   color-scheme: light;
   --grain-opacity: 0.12;
@@ -43,6 +63,10 @@
 }
 
 @layer base {
+  a[href="#main-content"]:focus {
+    z-index: 50;
+  }
+
   @media (width >= 48rem) {
     body:has(> .project-detail-page) {
       height: 100dvh;
