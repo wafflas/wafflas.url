@@ -13,7 +13,7 @@ export function WaffleArtwork() {
   const [loaded, setLoaded] = useState(false);
   const { active, spinning, assemble, finish } = useHomeIntro();
   return (
-    <div className="home-waffle grid size-full min-h-0 place-items-center overflow-hidden [container-type:size]">
+    <div className="home-waffle grid size-full min-h-0 select-none place-items-center overflow-hidden [container-type:size]">
       <div
         className="relative aspect-5/4 w-[min(100cqw,125cqh,36rem)] 2xl:w-[min(100cqw,125cqh,48rem)]"
         role="img"
@@ -24,6 +24,7 @@ export function WaffleArtwork() {
             className="object-contain"
             src="/images/waffle-ascii.png"
             alt=""
+            draggable={false}
             fill
             sizes="(min-width: 96rem) 32rem, (min-width: 40rem) 28rem, 100vw"
             preload

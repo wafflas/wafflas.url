@@ -1512,7 +1512,9 @@ export function AsciiObject({
     <div className={`relative ${className ?? ""}`} style={style}>
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 block size-full"
+        className="absolute inset-0 block size-full select-none"
+        draggable={false}
+        onDragStart={(event) => event.preventDefault()}
       />
       {children}
     </div>

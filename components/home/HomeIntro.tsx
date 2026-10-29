@@ -298,7 +298,8 @@ export function HomeIntro({ children }: { children: React.ReactNode }) {
             <canvas
               ref={canvas}
               aria-hidden="true"
-              className="pointer-events-none fixed inset-0 z-30 h-dvh w-screen"
+              className="pointer-events-none fixed inset-0 z-30 h-dvh w-screen select-none"
+              draggable={false}
             />
           </>
         )}

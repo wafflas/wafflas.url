@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 import { Logo } from "@/components/ui/Logo";
 import { ScrambleLink } from "@/components/ui/ScrambleText";
 
@@ -10,6 +14,18 @@ const navigation = [
 ] as const;
 
 export function Header() {
+  return (
+    <Suspense fallback={<HeaderContent pathname="" />}>
+      <ActiveHeader />
+    </Suspense>
+  );
+}
+
+function ActiveHeader() {
+  return <HeaderContent pathname={usePathname()} />;
+}
+
+function HeaderContent({ pathname }: { pathname: string }) {
   return (
     <header className="sticky top-0 z-20 shrink-0 py-6 sm:py-8">
       <div className="flex items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -44,7 +60,8 @@ export function Header() {
                 <ScrambleLink
                   href={item.href}
                   aria-label={`Go to ${item.label} page`}
-                  className="inline-flex min-h-11 items-center"
+                  aria-current={pathname === item.href || pathname.startsWith(`${item.href}/`) ? "page" : undefined}
+                  className={`inline-flex min-h-11 items-center ${pathname === item.href || pathname.startsWith(`${item.href}/`) ? "text-foreground/40" : "text-foreground"}`}
                 >
                   {item.label}
                 </ScrambleLink>
