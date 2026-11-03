@@ -7,10 +7,11 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
+import { useHomeIntroPlayback } from "./HomeIntroPlayback";
 
 type Particle = {
   x: number;
@@ -82,10 +83,12 @@ function sampleWaffle(source: HTMLCanvasElement): Particle[] {
 }
 
 export function HomeIntro({ children }: { children: React.ReactNode }) {
+  const claimPlayback = useHomeIntroPlayback();
   const root = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
   const restoreReveal = useRef<(() => void) | null>(null);
+  const shouldPlay = useRef<boolean | null>(null);
   const started = useRef(false);
   const finished = useRef(false);
   const [active, setActive] = useState(true);
@@ -195,10 +198,11 @@ export function HomeIntro({ children }: { children: React.ReactNode }) {
       // Reuse the navigation's existing hover-scramble characters.
       const navCharacters = Array.from(scope.querySelectorAll<HTMLElement>("header nav [data-content]"));
       const headingSplit = heading ? SplitText.create(heading, {
-        type: "words,chars",
+        type: "lines",
+        mask: "lines",
         aria: "auto",
       }) : null;
-      const headingCharacters = headingSplit?.chars ?? [];
+      const headingLines = headingSplit?.lines ?? [];
       restoreReveal.current = () => {
         headingSplit?.revert();
         navCharacters.forEach((character) => {
@@ -237,6 +241,18 @@ export function HomeIntro({ children }: { children: React.ReactNode }) {
           { autoAlpha: 0, scale: 0 },
           { autoAlpha: 1, scale: 1, duration: 0.17, stagger: 0.11, ease: "steps(2)" },
           "reveal+=0.18",
+        )
+        .fromTo(
+          headingLines,
+          { autoAlpha: 0, yPercent: 110 },
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            duration: 0.75,
+            stagger: 0.1,
+            ease: "power4.out",
+          },
+          "reveal+=0.22",
         );
       timeline.current = sequence;
       const decode = (characters: Element[], start: number, stagger: number) => {
@@ -253,12 +269,19 @@ export function HomeIntro({ children }: { children: React.ReactNode }) {
         });
       };
       decode(navCharacters, 0.12, 0.035);
-      decode(headingCharacters, 0.22, 0.01);
     },
     [finish],
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (shouldPlay.current === null) {
+      shouldPlay.current = claimPlayback();
+    }
+    if (!shouldPlay.current) {
+      finish();
+      return;
+    }
+
     finished.current = false;
     started.current = false;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -283,7 +306,7 @@ export function HomeIntro({ children }: { children: React.ReactNode }) {
       restoreReveal.current?.();
       restoreReveal.current = null;
     };
-  }, [finish]);
+  }, [claimPlayback, finish]);
 
   return (
     <IntroContext.Provider value={{ active, spinning, assemble, finish }}>

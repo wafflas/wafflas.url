@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { GeistPixelSquare } from "geist/font/pixel";
+import { HomeIntroPlaybackProvider } from "@/components/home/HomeIntroPlayback";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
@@ -23,7 +24,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           aria-hidden="true"
           className="pointer-events-none fixed inset-0 -z-10 bg-grain opacity-(--grain-opacity) motion-safe:animate-grain"
         />
-        {children}
+        <HomeIntroPlaybackProvider>
+          {children}
+        </HomeIntroPlaybackProvider>
         <Footer />
       </body>
     </html>
